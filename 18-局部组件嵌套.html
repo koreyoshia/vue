@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            components:{
+                test1:{
+                    template:`
+                        <div>
+                            <h1>hello</h1>
+                            <test2></test2>
+                        </div>
+                    `,
+                    components:{
+                        test2:{
+
+                        }
+                    }
+                //    不能直接嵌套，要再加components
+                },
+            }
+        })
+    </script>
+</body>
+</html>
