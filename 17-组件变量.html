@@ -13,8 +13,13 @@
     <script>
         Vue.component("comp1",{
             template:`
-                <h1>hello {{msg}}</h1>
-            `
+                <h1>hello {{msg2}}</h1>
+            `,
+            data(){
+                return{
+                    msg2:"fellows23"
+                }
+            }
         })
         new Vue({
             el:"#app",

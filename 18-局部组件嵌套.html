@@ -6,6 +6,7 @@
 </head>
 <body>
     <div id="app">
+        <test1></test1>
     </div>
 
     <script src="vue.js"></script>
@@ -22,8 +23,12 @@
                     `,
                     components:{
                         test2:{
-
-                        }
+                            template:`
+                                <div>
+                                    world
+                                </div>
+                                `
+                            }
                     }
                 //    不能直接嵌套，要再加components
                 },
