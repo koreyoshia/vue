@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrapper{
+            width: 400px;
+            height: 300px;
+            background: #dddddd;
+            top:50%;
+            left:50%;
+            position: absolute;
+        }
+        .header{
+            height: 50px;
+            background: #000;
+            color: #ffffff;
+            line-height: 50px;
+            padding: 0 15px;
+        }
+        .header span{
+            float: right;
+        }
+        .content{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button type="button" id="signin" @click="signin = true,signup = false">登录</button>
+        <button type="button" id="signup" @click="signup = true,signin = false">注册</button>
+        <dialogs v-show="signin" header="登录" @close="foo">
+            <div>
+                用户名：<input type="text">
+                <br>
+                密&nbsp&nbsp&nbsp码：<input type="password">
+                <br>
+                <button type="button">登录</button>
+            </div>
+        </dialogs>
+
+        <dialogs v-show="signup" header="注册" @close="foo">
+            <div>
+                用户名：<input type="text">
+                <br>
+                密&nbsp&nbsp&nbsp码：<input type="password">
+                <br>
+                电话，住址等信息balabalabal。。。。
+                <br>
+                <button type="button">注册</button>
+            </div>
+        </dialogs>
+    </div>
+    <template id="temp">
+        <div class="wrapper">
+            <div class="header">
+                {{header}}
+                <span @click="$emit('close',header)">[X]</span>
+            </div>
+
+            <div class="content">
+                <slot>
+
+                </slot>
+            </div>
+        </div>
+    </template>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component("dialogs",{
+            template:"#temp",
+            props:["header"]
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                signin:false,
+                signup:false,
+            },
+            methods:{
+                foo(val){
+                    this.signin = false;
+                    this.signup = false;
+                }
+            },
+        })
+    </script>
+</body>
+</html>
