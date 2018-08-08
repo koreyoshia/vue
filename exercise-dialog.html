@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        .dialog-bg{
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.3);
+        }
         .wrapper{
             width: 400px;
             height: 300px;
@@ -11,6 +19,9 @@
             top:50%;
             left:50%;
             position: absolute;
+            border: 1px solid #000000;
+            transform: translate(-50%,-50%);
+            z-index: 1;
         }
         .header{
             height: 50px;
@@ -33,9 +44,9 @@
         <button type="button" id="signup" @click="signup = true,signin = false">注册</button>
         <dialogs v-show="signin" header="登录" @close="foo">
             <div>
-                用户名：<input type="text">
+                用户名：<input type="text" placeholder="请输入用户名">
                 <br>
-                密&nbsp&nbsp&nbsp码：<input type="password">
+                密&nbsp&nbsp&nbsp码：<input type="password" placeholder="请输入密码">
                 <br>
                 <button type="button">登录</button>
             </div>
@@ -43,9 +54,9 @@
 
         <dialogs v-show="signup" header="注册" @close="foo">
             <div>
-                用户名：<input type="text">
+                用户名：<input type="text" placeholder="请输入用户名">
                 <br>
-                密&nbsp&nbsp&nbsp码：<input type="password">
+                密&nbsp&nbsp&nbsp码：<input type="password" placeholder="请输入密码">
                 <br>
                 电话，住址等信息balabalabal。。。。
                 <br>
@@ -54,16 +65,18 @@
         </dialogs>
     </div>
     <template id="temp">
-        <div class="wrapper">
-            <div class="header">
-                {{header}}
-                <span @click="$emit('close',header)">[X]</span>
-            </div>
+        <div class="dialog-bg">
+            <div class="wrapper">
+                <div class="header">
+                    {{header}}
+                    <span @click="$emit('close',header)">[X]</span>
+                </div>
 
-            <div class="content">
-                <slot>
+                <div class="content">
+                    <slot>
 
-                </slot>
+                    </slot>
+                </div>
             </div>
         </div>
     </template>
