@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <xiaonangua></xiaonangua>
+        <test></test>
+    </div>
+    <hr>
+    <div id="app2">
+        <xiaonangua></xiaonangua>
+        <test></test>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component("xiaonangua",{
+            template:`
+                <div>
+                    <h1>hello world</h1>
+                    <h1>hello fellows23</h1>
+                    <!--<h1>hello ting</h1>template只能有一个根元素-->
+                </div>
+            `
+        })
+        //外部公共定义的组件都可以引用，内部定义只能单个引用
+        new Vue({
+            el:"#app2"
+        })
+        new Vue({
+            el:"#app",
+            components:{
+                "test":{
+                    template:`
+                        <h1>hello</h1>
+                    `
+                }
+            },
+        })
+    </script>
+</body>
+</html>

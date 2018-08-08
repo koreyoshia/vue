@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div1{
+            width: 200px;
+            height: 200px;
+            background: #ff0036;
+        }
+        .div2{
+            width: 100px;
+            height: 100px;
+            background: #45b2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--<input type="button" v-on:click="test(2,$event)" value="add">-->
+        <input type="button" @click="test(2,$event)" value="add">
+        <div>{{num}}</div>
+        <div class="div1" @click.once="div1($event)">
+        <!--<div class="div1" @click="div1($event)">-->
+            <div class="div2" @click.stop="div2($event)">
+            </div>
+        </div>
+        <a href="http://baidu.com" @click.prevent="defaulta($event)">baidu</a>
+        <!--这里的defaulta为自定义方法，但是不能使用关键字default-->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                num:0
+            },
+            methods:{
+                test(key,e){
+                    // this.num ++;
+                    this.num += key;
+                    console.log(e);
+                },
+                div1(e){
+                    console.log("div1");
+                },
+                div2(e){
+                    console.log("div2");
+                    // e.stopPropagation();
+                //    阻止事件冒泡
+                },
+                defaulta(e){
+                    // e.preventDefault();
+                }
+            //    是defaul不是defaul
+            }
+        })
+    </script>
+</body>
+</html>

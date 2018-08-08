@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <div v-test="'red'">hello world</div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.directive("test",function (el,binding,vnode) {
+            // console.log(el);
+            // console.log(binding);
+            // console.log(vnode);
+            el.style.backgroundColor = binding.value;
+        //    backgroundColor驼峰式命名
+
+        })
+        new Vue({
+            el:"#app",
+        })
+    </script>
+
+</body>
+</html>

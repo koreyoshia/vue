@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <xiaonangua :wmsg="msg"></xiaonangua>
+        <test :tmsg="msg2"></test>
+        <!--注意调用的声明绑定，这里是:wmsg而不是msg-->
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component("xiaonangua",{
+            template:`
+                 <div>
+                   <h1>hello world</h1>
+                   <h1>hello {{wmsg}}</h1>
+                 </div>
+                `,
+                props:['wmsg']
+            //template是模板提供，props向子组件传递数据
+            })
+        new Vue({
+             el:"#app",
+            data:{
+                 msg:"fellows23",
+                msg2:"vue"
+            },
+             components:{
+                 "test":{
+                     template:`
+                          <h1>hello{{tmsg}}</h1>
+                     `,
+                     props:['tmsg']
+                 }
+             },
+        })
+    </script>
+</body>
+</html>

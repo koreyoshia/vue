@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="isIf">
+            isIf
+        </div>
+        <!--<div v-else-if="elseIf">-->
+            <!--elseIf-->
+        <!--</div>-->
+        <!--<div v-else="">-->
+            <!--else-->
+        <!--</div>-->
+        <div v-show="isShow">
+            isShow
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                isIf:false,
+                elseIf:true,
+                isShow:true
+            }
+        })
+    </script>
+</body>
+</html>

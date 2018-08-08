@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!--<li v-for="(items,index) in arr">-->
+                <!--&lt;!&ndash;上面的第一个参数必须是items，后面的按照顺序来&ndash;&gt;-->
+                <!--{{index}}:{{items}}-->
+                <!--&lt;!&ndash;{{items}}&ndash;&gt;-->
+            <!--</li>-->
+            <!--<li v-for="(key,items,index) in obj">-->
+                <!--{{index}}-{{key}}:{{items}}-->
+            <!--</li>-->
+            <li v-for="(items,index) in objArr">
+                <!--{{items.name}}-{{items.age}}-{{items.school}}-->
+                <span v-for="item in items">
+                    {{item}}
+                </span>
+            </li>
+        </ul>
+        <div>{{sortObj}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                arr:[1,2,3,4,5,6],
+                obj:{
+                    name:"xiaoming",
+                    age:"15",
+                    school:"linda"
+                },
+                objArr:[
+                    {
+                        name:"xiaoming",
+                        age:"15",
+                        school:"linda"
+                    },
+                    {
+                        name:"xiaohong",
+                        age:"18",
+                        school:"heida"
+                    },
+                    {
+                        name:"lisi",
+                        age:"25",
+                        school:"lindannn"
+                    }
+                ]
+            },
+            //计算属性，实时监听
+            computed:{
+                //es6简写去掉function
+                sortObj() {
+
+                }
+            }
+        })
+
+
+        // var obj = {
+        //     objArr:[
+        //         {
+        //             name:"xiaoming",
+        //             age:"15",
+        //             school:"linda"
+        //         },
+        //         {
+        //             name:"xiaohong",
+        //             age:"18",
+        //             school:"heida"
+        //         },
+        //         {
+        //             name:"lisi",
+        //             age:"25",
+        //             school:"lindannn"
+        //         }
+        //     ]
+        // }
+        // }
+        // obj.objArr.sort(function (a,b) {
+        //     return a.age - b.age
+        // })
+        // console.log(obj);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="change">change</button>
+        {{arr}}
+        {{obj}}
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                arr:[1,2,3,4,5],
+                obj:{
+                    name:"lisi"
+                }
+            },
+            methods:{
+                change(){
+                    this.arr[2] = "a";
+                    //无法监听根元素变化
+                    // Vue.set(this.arr,2,"a");
+                    this.obj.name = "zhangsan";
+                    this.obj.age = "20";
+                //    存在bug，单改数组不行，同时改对象可以
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

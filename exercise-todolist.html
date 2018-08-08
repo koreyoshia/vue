@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .list-header h1{
+            text-align: center;
+        }
+        .form-inline{
+            margin: 22px;
+            margin-left: 535px;
+        }
+        .form-submit .form-row{
+            margin-left: 435px;
+        }
+        .selected{
+            background: #ff0036 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="list-header">
+            <h1>todolist</h1>
+            <hr>
+        </div>
+
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" class="form-control" v-model="searchVal" id="inputPassword2" placeholder="请输入关键字">
+            </div>
+            <button type="button" class="btn btn-primary mb-2" @click="search">搜索</button>
+        </form>
+
+        <form class="form-submit">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div>商品名称</div>
+                        <input type="text" v-model="name" class="form-control" id="inlineFormInputGroup" placeholder="请输入名称">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div>商品价格</div>
+                        <input type="text" v-model="price" class="form-control" id="inlineFormInputGroup" placeholder="0">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary mb-2" @click="add()">增加</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col" v-for="(items,index) in tableHead">{{items.name}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(items,index) in shopList" @click="change(items,index)" :class="{selected:items.isSelect}">
+                <th scope="row"><input type="checkbox" name="shoppings" v-model="checkin" :value="index"></th>
+                <td>{{items.name}}</td>
+                <td>{{items.price}}</td>
+                <td>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true" id="close">&times;</span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><button type="button" @click="delShop()">删除选中</button></th>
+                <td>
+                    总价：<span>{{sum}}</span>元
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#container",
+            data:{
+                searchVal:'',
+                checkin:[],
+                name:"",
+                price:"",
+                shopList:[
+                    {
+                        name:"外套",
+                        price:265,
+                        isSelect:false
+                    },
+                    {
+                        name:"裙子",
+                        price:189,
+                        isSelect:false
+                    },
+                    {
+                        name:"包包",
+                        price:590,
+                        isSelect:false
+                    },
+                    {
+                        name:"裤子",
+                        price:120,
+                        isSelect:false
+                    },
+                    {
+                        name:"鞋子",
+                        price:400,
+                        isSelect:false
+                    },
+                ],
+                tableHead:[
+                    {
+                        name:"选择"
+                    },
+                    {
+                        name:"商品名称"
+                    },
+                    {
+                        name:"商品价格"
+                    },
+                    {
+                        name:"删除"
+                    },
+                ]
+            },
+
+            methods:{
+                change(items,selectArr){
+                    if(items.isSelect){
+                        this.checkin.splice(this.checkin.indexOf(selectArr),1);
+                    }else{
+                        this.checkin.push(selectArr);
+                    }
+                    items.isSelect = !items.isSelect;
+                },
+                search(){
+                    let newShop = this.shopList.filter((items)=> {
+                        console.log(items.name,this.searchVal)
+                        if(items.name.includes(this.searchVal)){
+                            return items;
+                        }
+                    });
+                    this.shopList = newShop;
+                },
+                add(){
+                    this.shopList.push({
+                        name:this.name,
+                        price:this.price,
+                        isSelect:false
+                    })
+                    this.name = '';
+                    this.price = '';
+                },
+                delShop(){
+                    let newShop = this.shopList.filter(function (items) {
+                        return (items.isSelect != true);
+                    })
+                    this.shopList = newShop;
+                    this.checkin = [];
+                },
+            },
+            computed:{
+                //是属性不是方法
+                sum(){
+                    let totalPrice = 0;
+                    console.log(totalPrice)
+                    this.shopList.forEach(items=>{
+                        if(items.isSelect){
+                            totalPrice += items.price;
+                        }
+                    });
+                    return totalPrice;
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
