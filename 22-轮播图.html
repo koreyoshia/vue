@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            height: 400px;
+            position: relative;
+        }
+        .items img{
+            position: absolute;
+            width: 100%;
+            height: 400px;
+            top: 0;
+            left: 0;
+        }
+        .button{
+            position: absolute;
+            list-style: none;
+            right: 50px;
+            bottom: 20px;
+        }
+        .button li{
+            width: 20px;
+            height: 20px;
+            float: left;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 5px;
+            background: #ffbacb;
+        }
+        .button li.selected{
+            background: #4db7f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul class="container">
+            <li class="items" v-show="index == nowIndex" v-for="(items,index) in picList" :key="index + 'pl'">
+                <img :src="items" alt="">
+            </li>
+        </ul>
+        <ul class="button">
+            <li v-for="(n,index) in picList.length" :key="index + 'p'" :class="{selected:index == nowIndex}" @click="change(index)">
+                {{n}}
+            </li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                picList:[
+                    "images/01.jpg",
+                    "images/02.jpg",
+                    "images/03.jpg"
+                ],
+                nowIndex:0
+            },
+            methods:{
+                change(index){
+                    this.nowIndex = index;
+                }
+            },
+            //dom变换最好用mounted
+            created(){
+                setInterval(()=>{
+                    this.nowIndex ++ ;
+                    if(this.nowIndex == this.picList.length){
+                        this.nowIndex = 0;
+                    }
+                },1000)
+            }
+        })
+    </script>
+</body>
+</html>
