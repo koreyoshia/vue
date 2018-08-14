@@ -8,12 +8,21 @@
             margin: 0;
             padding: 0;
         }
-        #app{
+        .wrapper{
             height: 400px;
             position: relative;
+            border: 1px solid #000;
+            width: 500px;
+            margin:200px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .items{
+            list-style: none;
+            position: absolute;
         }
         .items img{
-            position: absolute;
+
             width: 100%;
             height: 400px;
             top: 0;
@@ -33,24 +42,42 @@
             line-height: 20px;
             margin-right: 5px;
             background: #ffbacb;
+            list-style: none;
         }
         .button li.selected{
             background: #4db7f2;
+        }
+        .fade-enter {
+            transform: translateX(100%);
+        }
+        .fade-enter-to {
+            transform: translateX(0);
+        }
+        .fade-enter-active,.fade-leave-active {
+            transition: transform 1s linear;
+        }
+        .fade-leave {
+            transform: translateX(0);
+        }
+        .fade-leave-to {
+            transform: translateX(-100%);
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <ul class="container">
-            <li class="items" v-show="index == nowIndex" v-for="(items,index) in picList" :key="index + 'pl'">
-                <img :src="items" alt="">
-            </li>
-        </ul>
-        <ul class="button">
-            <li v-for="(n,index) in picList.length" :key="index + 'p'" :class="{selected:index == nowIndex}" @click="change(index)">
-                {{n}}
-            </li>
-        </ul>
+        <div class="wrapper" @mouseover="stop" @mouseout="play">
+            <transition-group name="fade" tag="ul">
+                <li class="items" v-show="index == nowIndex" v-for="(items,index) in picList" :key="index + 'pl'">
+                    <img :src="items" alt="">
+                </li>
+            </transition-group>
+            <ul class="button">
+                <li v-for="(n,index) in picList.length" :key="index + 'p'" :class="{selected:index == nowIndex}" @click="change(index)">
+                    {{n}}
+                </li>
+            </ul>
+        </div>
     </div>
     <script src="vue.js"></script>
     <script>
@@ -62,22 +89,32 @@
                     "images/02.jpg",
                     "images/03.jpg"
                 ],
-                nowIndex:0
+                nowIndex:0,
+                timer:null,
+            },
+            mounted(){
+                this.play();
             },
             methods:{
                 change(index){
                     this.nowIndex = index;
+                },
+                stop(){
+                    clearInterval(this.timer);
+                },
+                play(){
+                    this.timer = setInterval(()=>{
+                        this.nowIndex ++ ;
+                        if(this.nowIndex == this.picList.length){
+                            this.nowIndex = 0;
+                        }
+                    },2000)
                 }
             },
             //dom变换最好用mounted
-            created(){
-                setInterval(()=>{
-                    this.nowIndex ++ ;
-                    if(this.nowIndex == this.picList.length){
-                        this.nowIndex = 0;
-                    }
-                },1000)
-            }
+            // created(){
+            //
+            // }
         })
     </script>
 </body>
