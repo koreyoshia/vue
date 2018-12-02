@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <fellow></fellow>
+  </div>
+
+  <template id="comw">
+      <div>
+        <div>
+          <slot>默认名</slot>
+        </div> 
+        <div>age</div> 
+        <div>school</div> 
+        <button>{{tttt}}</button>
+        <!-- <test2></test2> -->
+      </div>
+    </template>  
+
+  
+  <script src="vue.js"></script>
+  <script>
+    
+    
+    let tset = new Vue({
+      el:"#app",
+      data:{
+        name:"xiaoming",
+        searchText:0
+      },
+      components: {
+        fellow:{
+          data(){
+            return{
+              tttt:"abcd"
+            }
+          },
+          template:"#comw",
+          props: ['ast']
+        },
+        test2:{
+          template:`<h1>test2</h1>`
+        }
+      },
+      methods: {
+        clos(){
+          console.log('abc');
+          
+        },
+        aaa(){
+          console.log('123');
+          
+        }
+      }
+    })
+    console.log(tset);
+  </script>
+</body>
+</html>
